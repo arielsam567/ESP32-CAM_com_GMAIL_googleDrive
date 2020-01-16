@@ -1,8 +1,3 @@
-/*
-Author : ChungYi Fu (Kaohsiung, Taiwan)   2019/9/28 12:00
-https://www.facebook.com/francefu
-*/
-
 function doPost(e) {
   var myRecipient = decodeURIComponent(e.parameter.myRecipient);
   var mySubject = decodeURIComponent(e.parameter.mySubject);
@@ -14,14 +9,14 @@ function doPost(e) {
   data = Utilities.base64Decode(data);
   var blob = Utilities.newBlob(data, contentType, "esp32-cam.jpg");
 
-  // Send a photo as an attachment by using Gmail
+// Envie uma foto como anexo usando o Gmail
   var response = GmailApp.sendEmail(myRecipient, mySubject, myBody,{
       attachments: [blob],
       name: 'Automatic Emailer Script'
     }
   );
   
-  // Save the photo to Google Drive
+  // Salva a foto no google drive
   var folder, folders = DriveApp.getFoldersByName("ESP32-CAM");
   if (folders.hasNext()) {
     folder = folders.next();
