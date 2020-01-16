@@ -1,9 +1,21 @@
+/*
+
+Google Apps Script
+
+https://github.com/arielsam567/ESP32-CAM-COM-GMAIL/blob/master/envia_imagem_capturada_para_google_drive.gs
+Você deve permitir que qualquer pessoa e anônimo execute o script do google.
+
+https://script.google.com/home
+https://script.google.com/home/executions
+https://drive.google.com/drive/my-drive
+*/
+
 // Enter your WiFi ssid and password
-const char* ssid = "Multilaser_2.4G_39C8D0";
-const char* password = "12345678";
+const char* ssid = "Multilaser_2.4G_39C8D0"; //nome do wifi
+const char* password = "123456789";           //senha do wifi
 
 const char* myDomain = "script.google.com";
-String myScript = "/macros/s/AKfycbxYBuqgzyxdbo9zcVT0ypmWfqGdoPPri7IEK160PCBpbbvfQac5/exec";    // Crie seu script do Google Apps e substitua o caminho "myScript"
+String myScript = "/macros/s/AKfycbxYBuqgzyxdbo9zkVT0ypmWfqGdoPPri7IEK160PCBpbbvfQac5/exec";    // Crie seu script do Google Apps e substitua o caminho "myScript"
 String myRecipient = "arielsam56@gmail.com";  // email que sera enviado a foto
 String meuAssunto = "Hello World"; // assunto do email
 
@@ -98,7 +110,6 @@ void setup() {
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
-  //init with high specs to pre-allocate larger buffers
   if (psramFound()) {
     config.frame_size = FRAMESIZE_UXGA;
     config.jpeg_quality = 10;  //0-63 lower number means higher quality
@@ -109,7 +120,6 @@ void setup() {
     config.fb_count = 1;
   }
 
-  // camera init
   esp_err_t err = esp_camera_init(&config);
   if (err != ESP_OK) {
     Serial.printf("Camera init failed with error 0x%x", err);
@@ -117,7 +127,6 @@ void setup() {
     ESP.restart();
   }
 
-  //drop down frame size for higher initial frame rate
   sensor_t * s = esp_camera_sensor_get();
   s->set_framesize(s, FRAMESIZE_VGA);  // UXGA|SXGA|XGA|SVGA|VGA|CIF|QVGA|HQVGA|QQVGA
 
